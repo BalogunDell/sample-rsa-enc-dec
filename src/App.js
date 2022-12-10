@@ -4,16 +4,13 @@ import {
   isPrime,
   encrypt,
   decrypt,
-  publicKeySecondComponents,
+  possiblePublicKeyExponents,
   getInverse
 } from "./utils";
 
 export default function App() {
   const [values, getValues] = useState({
-    p: "",
-    q: "",
-    publicExponent: "",
-    message: ""
+    p: '', q: '', publicExponent: '', message: ''
   });
 
   const [error, setError] = useState();
@@ -28,27 +25,30 @@ export default function App() {
       setError("Prime number(s) not large enough. Use LARGE numbers");
     } else {
       setError("");
-      const keys = publicKeySecondComponents(values.p, values.q);
+      const keys = possiblePublicKeyExponents(values.p, values.q);
       setKeys(keys);
     }
   }, [values.p, values.q]);
 
   const setPrimes = ({ target: { value, name } }) => {
-
-    if (name === 'message') {
-      getValues({ ...values, [name]: value });
-    } else {
-      getValues({ ...values, [name]: value ? parseInt(value, 10): '' });
-    }
+    getValues({ ...values, [name]: typeof value !== 'string' ? parseInt(value, 10): value });
     setCipherResult()
-    setOriginalResult('')
+    setOriginalResult()
+    setError('')
   };
 
   const encryptText = () => {
+      const modValue = values.p * values.q
+      const message = parseInt(values.message, 10)
+
+      if (message >= modValue) {
+       return setError(`Message must be less than ${modValue}`)
+      }
+
     const {result, publicKey } = encrypt({
       message: values.message,
       publicExponent: values.publicExponent,
-      modValue: values.p * values.q
+      modValue
     });
     setCipherResult({result, ...publicKey})
   };
@@ -69,12 +69,7 @@ export default function App() {
     setCipherResult()
     setOriginalResult()
     setKeys()
-    getValues({
-      p: "",
-      q: "",
-      publicExponent: "",
-      message: ""
-    })
+    getValues({ p: '', q: '', publicExponent: '',message: '' })
   }
 
   return (

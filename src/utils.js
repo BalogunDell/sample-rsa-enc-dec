@@ -1,3 +1,8 @@
+ /**
+  *  Checks if a value is a prime number
+  * @param {number} value 
+  * @returns boolean
+  */
 export const isPrime = (value) => {
   value = Math.round(value);
   let prime = true;
@@ -14,6 +19,12 @@ export const isPrime = (value) => {
   return prime;
 };
 
+/**
+ *  Calculate the GCD of r1, r2
+ * @param {*} r1 
+ * @param {*} r2 
+ * @returns 
+ */
 const calculateGCD = (r1, r2) => {
   let r;
   while (r2 > 0) {
@@ -26,6 +37,12 @@ const calculateGCD = (r1, r2) => {
   }
 };
 
+/**
+ *  This function derives the mod inverse
+ * @param {prime number} r1 
+ * @param {prime number} r2 
+ * @returns 
+ */
 export const getInverse = (r1, r2) => {
   const mod = r1; // We need this to brings t1 value to positive modulo domain
   let r;
@@ -43,12 +60,20 @@ export const getInverse = (r1, r2) => {
     t2 = t;
 
     if (r1 === 1) {
+      // check if the t1 is negative, we want to bring it down to the modulos domain
       return t1 > 0 ? t1 : t1 + mod;
     }
   }
 };
 
-export const publicKeySecondComponents = (p, q) => {
+/**
+ * This gives the possible values of
+ * e that fulfills the condition of gcd(e, phinN)
+ * @param {prime integer} p 
+ * @param {prime integer} q 
+ * @returns array of possible keys that a user can pick randomly
+ */
+export const possiblePublicKeyExponents = (p, q) => {
   const keys = [];
   const phiN = (p - 1) * (q - 1);
   for (let i = 1; i < phiN; i++) {
@@ -60,18 +85,8 @@ export const publicKeySecondComponents = (p, q) => {
   return keys;
 };
 
-export const calculatePublicKey = (p, q) => {
-  const n = p * q;
-  const phiN = (p - 1) * (q - 1);
-  let e = Math.ceil(Math.random() * phiN);
-  let gcd = calculateGCD(phiN, e);
-  while (gcd !== 1) {
-    e = Math.ceil(Math.random() * phiN);
-    gcd = calculateGCD(phiN, e);
-  }
-  return [e, n];
-};
-
+// Javascript cannot handle Bigint so this method is used 
+// to calculate the power modulus
 const powerMod = (base, exponent, modulus) => {
   if (modulus === 1) return 0;
   var result = 1;
@@ -86,12 +101,18 @@ const powerMod = (base, exponent, modulus) => {
   return result;
 };
 
+//  We encrypt using the message, e and modvalue
 export const encrypt = ({ message, publicExponent, modValue }) => {
-  if (!isNaN(parseInt(message, 10))) {
+
+  // we want to check if the message is a number so we can encrypt just the
+  // number and return the result
+  if (!isNaN(parseInt(message, 10))) { 
     const result = powerMod(message, publicExponent, modValue);
     return {result, publicKey: {e:  publicExponent, n: modValue } };
   }
 
+  // If we have a text to encrypt, loop through each character and encode them using 
+  // the asci corresponding character 
   let result = "";
   for (let index = 0; index < message.length; index++) {
     const code = powerMod(message.charCodeAt(index), publicExponent, modValue);
@@ -101,10 +122,16 @@ export const encrypt = ({ message, publicExponent, modValue }) => {
 };
 
 export const decrypt = ({ cipherText, privateKey, modValue }) => {
+
+  // we want to check if the message is a number so we can encrypt just the
+  // number and return the result
   if (!isNaN(parseInt(cipherText, 10))) {
     const result = powerMod(cipherText, privateKey, modValue);
     return {result, privateKey: {d:  privateKey, n: modValue } };
   }
+
+   // If we have a text to decrypt, loop through each character and encode them using 
+  // the asci corresponding character 
 
   let result = "";
 
