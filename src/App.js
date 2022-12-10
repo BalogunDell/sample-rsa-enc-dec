@@ -162,7 +162,7 @@ export default function App() {
        { !cipherResult && <div className="wrapper">
           <button
             onClick={encryptText}
-            disabled={!values.p || !values.q || cipherResult}
+            disabled={!values.publicExponent || !values.message}
             style={{
               width: "100px",
               height: "30px",
