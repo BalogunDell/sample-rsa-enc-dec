@@ -1,38 +1,54 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
+  width: 600px;
+  margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-image: url('../public/crypto-image.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  margin: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+input {
+  margin-top: 10px;
+  border-radius: 2px;
+  height: 15px;
+  border: 1px thin black;
+  padding: 10px;
+}
+
+label, h1 {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  margin: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p {
+  color: red;
+}
+
+select {
+  margin-top: 10px;
+  width: 160px;
+  border-radius: 5px;
+  border: 1px thin black;
+  padding: 8px;
 }
