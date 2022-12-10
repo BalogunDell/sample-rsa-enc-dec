@@ -120,7 +120,7 @@ export default function App() {
         </div>
 
         <div className="wrapper">
-          <label>Enter another large prime number different from previous - Q</label>
+          <label>Enter another large prime number - Q</label>
           <input
             type="number"
             min={9}

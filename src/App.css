@@ -7,7 +7,7 @@
 body {
   background-image: url('../public/crypto-image.jpeg');
   background-size: cover;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   height: 100vh;
   margin: 0;
   padding: 0;
