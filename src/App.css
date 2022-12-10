@@ -19,6 +19,12 @@ h1, h3 {
   margin: 0;
 }
 
+.error {
+  font-size: 15px;
+  margin: 0;
+  text-align: left;
+}
+
 
 .wrapper {
   display: flex;
@@ -54,5 +60,5 @@ select {
   width: 160px;
   border-radius: 5px;
   border: 1px thin black;
-  padding: 8px;
+  padding: 10px;
 }

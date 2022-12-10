@@ -25,7 +25,7 @@ export default function App() {
     if (values.p && values.q && (!isPrime(values.p) || !isPrime(values.q))) {
       setError("Both p and q should be prime numbers");
     } else if ((values.p && values.p < 13) || (values.q && values.q < 13)) {
-      setError("Prime numbers not large enough. Should LARGE numbers");
+      setError("Prime number(s) not large enough. Use LARGE numbers");
     } else {
       setError("");
       const keys = publicKeySecondComponents(values.p, values.q);
@@ -93,7 +93,7 @@ export default function App() {
       >
         {error && (
           <div>
-            <p>{error}</p>
+            <p className="error">{error}</p>
           </div>
         )}
 
@@ -109,7 +109,7 @@ export default function App() {
         </div>}
 
         <div className="wrapper">
-          <label>Please enter a large prime number - p</label>
+          <label>Enter a large prime number - P</label>
           <input
             type="number"
             min={9}
@@ -120,7 +120,7 @@ export default function App() {
         </div>
 
         <div className="wrapper">
-          <label>Please enter a large prime number - q</label>
+          <label>Enter another large prime number different from previous - Q</label>
           <input
             type="number"
             min={9}
@@ -131,7 +131,7 @@ export default function App() {
         </div>
 
         <div className="wrapper">
-          <label>Select public exponent - e</label>
+          <label>Select public exponent - E</label>
           <select
             name="publicExponent"
             onChange={(e) => setPrimes(e)}
