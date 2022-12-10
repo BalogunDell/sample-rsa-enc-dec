@@ -80,14 +80,15 @@ export default function App() {
   return (
     <div className="App">
       <h1>RSA Encryption/Decryption</h1>
-      <h6>This encryption uses the ASCII table with extended characters to encrypt</h6>
+      <h3>This encryption uses the ASCII table with extended characters to encrypt</h3>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           backgroundColor: 'rgba(0, 0,0, 0.6)',
           padding: '20px',
-          borderRadius: '20px'
+          borderRadius: '20px',
+          margin: '20px'
         }}
       >
         {error && (
