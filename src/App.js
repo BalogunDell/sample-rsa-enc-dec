@@ -20,14 +20,20 @@ export default function App() {
 
   useEffect(() => {
     if (values.p && values.q && (!isPrime(values.p) || !isPrime(values.q))) {
-      setError("Both p and q should be prime numbers");
-    } else if ((values.p && values.p < 13) || (values.q && values.q < 13)) {
-      setError("Prime number(s) not large enough. Use LARGE numbers");
-    } else {
-      setError("");
-      const keys = possiblePublicKeyExponents(values.p, values.q);
-      setKeys(keys);
+     return setError("Both p and q should be prime numbers");
+    } 
+    
+    if ((values.p && values.p < 13) || (values.q && values.q < 13)) {
+     return setError("Prime number(s) not large enough. Use LARGE numbers");
+    }  
+    
+    if (values.p && values.p === values.q) {
+     return setError("The two prime numbers p and q should be different");
     }
+
+    setError("");
+    const keys = possiblePublicKeyExponents(values.p, values.q);
+    setKeys(keys);
   }, [values.p, values.q]);
 
   const setPrimes = ({ target: { value, name } }) => {
